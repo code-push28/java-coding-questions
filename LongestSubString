@@ -1,0 +1,47 @@
+package strings;
+
+/**
+ * Java Program to Find the Longest Substring Without Repeating Characters
+ *
+ * Input:  "abcabcbb"
+ * Output: "abc" (Length: 3)
+ *
+ * Logic:
+ * - Iterate through all possible substrings
+ * - Use indexOf to check if character is already in current substring
+ * - Keep track of the longest unique substring found
+ */
+
+public class LongestSubstring {
+
+    public static void main(String[] args) {
+        String str = "abcabcbb";
+
+        String longestSubstring = "";
+
+        for (int i = 0; i < str.length(); i++) {
+            String currentString = "";
+
+            for (int j = i; j < str.length(); j++) {
+                char currentChar = str.charAt(j);
+
+                // If character already exists in currentString, break
+                if (currentString.indexOf(currentChar) != -1) {
+                    break;
+                }
+
+                // Append current character to currentString
+                currentString += currentChar;
+            }
+
+            // Update longestSubstring if currentString is longer
+            if (currentString.length() > longestSubstring.length()) {
+                longestSubstring = currentString;
+            }
+        }
+
+        // Print the result
+        System.out.println("Longest substring without repeating characters: " + longestSubstring);
+        System.out.println("Length: " + longestSubstring.length());
+    }
+}
