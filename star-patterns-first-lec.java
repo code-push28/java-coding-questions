@@ -110,6 +110,29 @@ public class patterns {
             * * 
               * 
 
+            space - i-1 number of spaces , i = number of row 
+
+              stars - n___1
+
+
+              1. how many number of rows you have in your pattern 
+                  n = 5
+
+              2. number of spaces each row have    
+              
+              3. how many number of star in each row 
+
+
+
+              8. Inverted Pyramid 
+
+              ********* 
+               *******  
+                ***** 
+                 *** 
+                  *   
+
+
 
                
             
@@ -228,6 +251,35 @@ public class patterns {
 
 
     }
+
+        System.out.println();
+
+    // inverted triangle (left aligned)
+
+    for(int i = 1; i<=n;i++){
+
+        for(int j = 1; j<=i-1; j++){
+            System.out.print(" ");
+        }
+
+        for(int k=n;k>=i;k--){
+
+            System.out.print("*");
+
+            //1 , 5...1= 5 stras 
+            //2 , 5...2 = 5 ,4 ,3,2--- 4 stars
+            //3 , 3
+
+        }
+
+        System.out.println();
+
+    }
+
+    System.out.println();
+
+    // inverted pyramid 
+    for(int i = 0; i<n;i++){
 
 
 
