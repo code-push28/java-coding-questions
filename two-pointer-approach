@@ -1,0 +1,154 @@
+package arrays;
+
+import java.util.Arrays;
+
+public class TwoPointerDemo {
+    
+
+public static void main(String[] args){
+    /*
+    Two-Pointer Technique 
+    The two-pointer technique uses two indexes (pointers) 
+    to traverse an array (or string) from different directions or speeds, to avoid nested loops.  
+
+    It means using two variables (or “pointers”) that move through 
+    the array to solve a problem more efficiently — 
+    instead of checking all pairs using nested loops (O(n²)), we smartly move two pointers (O(n)).
+
+    🎯 Real-Life Analogy
+
+      Imagine you and your friend standing at two ends of a row of books.
+
+      You both move toward each other depending on the condition (like the total number of pages you both are holding).
+
+      You don’t need to check every possible pair — you adjust your movement based on logic.
+
+      That’s exactly what the two pointer technique does in an array.
+
+
+
+      🔹 When do we use Two Pointer?
+
+        Array is sorted (most common case)
+        We need to find pairs or subarrays matching some condition (like sum = target).
+        Or we want to rearrange elements (like move zeros, partition 0s and 1s, reverse array, etc.)
+
+
+        🧩 1. Reverse an Array
+        Brute Force:
+
+        {21,30,12,10,8}
+
+        We used a temporary array and copied elements backward → O(n) space.
+
+    
+        Two Pointer Solution:
+
+        No extra space needed. Just swap elements from both ends!
+
+        Start one pointer at the start (left)
+
+        Another at the end (right)
+
+        Swap them and move inward.
+
+        Time = O(n), Space = O(1)
+
+
+        2. Pair with Target Sum (Sorted Array) 
+         Given a sorted array and a target sum, find if there exists a pair whose sum equals target.
+         0 1 2 3 4   5 
+        {2,4,6,8,11,13}
+             |       |
+        target sum = 19
+
+
+        left = 0 
+        right = 5
+
+        while(left<right){
+
+        left element + right elemnet == target sum , true 
+
+
+        left element +right element >target sum , right --
+
+        left element + right element < target sum  , left ++
+
+
+
+        2+13 = 16 <19
+
+        left = 1
+        right = 5
+
+        4+13 = 17 <19
+
+        left = 2 
+        right = 5
+
+        6+13 = 19  , true 
+        }
+
+
+       time complexity -  O(n)
+       space complexity -  O(1)
+
+
+     */
+
+
+
+     int[] arr = {2,4,6,8,11,13};
+
+     System.out.println("Is Exist : "+ isTargetSumExist(arr, 90));
+
+     System.out.println("Array before reverse : "+ Arrays.toString(arr));
+
+     int  n = arr.length;
+
+     int left = 0 ;
+     int right = n-1;
+
+     while(left<right){
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+
+        left++;
+        right--;
+        
+     }
+
+     System.out.println("Array after reverse : "+ Arrays.toString(arr));
+
+}
+
+public static boolean isTargetSumExist(int[] arr , int target){
+    boolean isExist = false;
+    int n = arr.length;
+
+    int left = 0;
+    int right = n-1;
+
+    while (left<right) {
+
+        if(arr[left] + arr[right] == target){
+            isExist = true;
+            return isExist;
+        }else if(arr[left]+arr[right]>target){
+            right--;
+        }else if(arr[left]+arr[right]<target){
+            left++;
+        }
+        
+    }
+
+
+
+
+    return isExist;
+
+
+}
+}
