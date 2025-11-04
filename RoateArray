@@ -1,0 +1,190 @@
+package arrays;
+import java.util.Arrays;
+import java.util.Scanner;
+
+ /*
+
+ 1. What is Array Rotation?
+ Array rotation means shifting array elements to the left or right by k positions.
+
+Example:
+arr = [1, 2, 3, 4, 5, 6, 7]
+
+Left Rotate by 2 → [3, 4, 5, 6, 7, 1, 2]
+
+Right Rotate by 2 → [6, 7, 1, 2, 3, 4, 5]
+
+Left Rotate by 3 - [4,5,6,7,1,2,3]
+
+1. Brute force approach - 
+
+Move one element at a time, k times.
+In each rotation → take first element, shift others left by one, and put first element at the end.
+
+Example:
+arr = [1, 2, 3, 4, 5], k = 2
+* First rotation: [2, 3, 4, 5, 1]
+* Second rotation: [3, 4, 5, 1, 2]
+  Final Result = [3, 4, 5, 1, 2]
+
+  Step 1 - 
+  first element = 1
+  [ ,2,3,4,5]
+   [2,3,4,5, 1]
+
+   Step 2 - 
+
+    [ ,3,4,5, 1]
+    first element - 2
+    [3,4,5,1, 2]
+
+
+    arr = [1, 2, 3, 4, 5], k = 6
+    n = 5
+
+    Step 1 - 
+     first element = 1
+  [ ,2,3,4,5]
+   [2,3,4,5, 1]
+
+   Step 2 - 
+
+    [ ,3,4,5, 1]
+    first element - 2
+    [3,4,5,1, 2]
+
+    Step 3 - 
+   first element = 3
+   [4,5,1,2,3]
+
+   Step 4 - 
+
+   first element = 4
+   [5,1,2,3,4]
+
+   Step 5 - 
+   first element = 5
+   [1,2,3,4,5]
+
+   step 6 - 
+
+   first elemnet - 1
+   [2,3,4,5,1]
+
+   k-n = 6-5 = 1
+
+   k%n
+
+   time complexoity - O(n*k)
+
+
+
+
+
+
+2.Two pointer technique
+
+[1,2,3  ,  4,5,6,7] , k = 3
+
+[3,2,1  ,7,6,5,4 ]
+
+[4,5,6,7,1,2,3]
+
+O(n)
+
+
+
+
+output - 
+
+[4,5,6,7,1,2,3]
+
+
+          
+*/
+
+public class ArrayRotation {
+
+    public static void main(String[] args){
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter size of array : ");
+        int n = sc.nextInt();
+        System.out.println("Enter elements of array : ");
+        int arr[] = new int[n];
+        for(int i = 0 ; i<n;i++){
+            arr[i] = sc.nextInt();
+            
+        }
+
+        System.out.println("Enter number of positions you want to rotate the array :n ");
+
+        int k = sc.nextInt();
+        System.out.println("Without rotation : "+ Arrays.toString(arr));
+        rotateArrayBytwoPointers(arr,k);
+        System.out.println("After rotation : "+ Arrays.toString(arr));
+
+
+
+       
+    }
+
+    public static void rotateArraybyBruteForce(int[] arr , int k){
+        int n = arr.length;
+        k = k%n;
+
+        for(int i = 0 ; i<k;i++){
+            //take first element, shift others left by one, and put first element at the end.
+
+            int temp = arr[0];
+            //[1,2,3,4,5]
+
+            //[ , 2,3,4,5]
+            //  0  1  2 3 4 
+
+            for(int j = 0 ; j<n-1;j++){
+                arr[j] = arr[j+1];
+            }
+
+            arr[n-1] = temp;
+
+        }
+
+    }
+
+
+    public static void reverseArray(int[] arr , int start , int end){
+        while(start<end){
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp ;
+
+            start++;
+            end--;
+        }
+    }
+
+    public static void rotateArrayBytwoPointers(int[] arr , int k){
+        /*
+        [1,2,3,4,5,6]
+         0 1 2 3 4 5
+
+         i. rotation part 
+         ii. other part 
+         iii. whole array
+
+         0..k-1
+         k..n-1
+         0..n-1
+
+         */
+
+         int n = arr.length;
+
+         reverseArray(arr,0,k-1);
+         reverseArray(arr, k, n-1);
+         reverseArray(arr, 0, n-1);
+    }
+
+
+}
