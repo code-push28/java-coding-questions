@@ -1,0 +1,113 @@
+import java.util.Arrays;
+
+public class InsertionSortDemo {
+    /*
+
+Insertion sort builds the final sorted array one element at a time, the same way you sort playing cards in your hand.
+
+Pick one element (called key)
+
+Compare it with elements on the left side
+
+Shift bigger elements to the right
+
+Insert the key at the correct position
+
+---------
+
+When to use : 
+
+Small datasets
+
+Nearly sorted arrays (works very fast)
+
+When simplicity is more important than speed
+
+------------
+
+Time Complexity : 
+
+Best: O(n) (when array is already sorted)
+
+Average: O(n²)
+
+Worst: O(n²)
+
+Space: O(1) (in-place)
+
+Example : 
+ 0  1  2   3 4
+[5, 2, 4, 6, 1]
+
+Step 1 : second element which is at 1 index
+key = 2
+
+5>2
+
+right shift 
+0+1
+
+[2 , 5, 4, 6, 1]
+
+Step 2 :
+key = 4 
+
+[2 , 5, 4, 6, 1]
+
+[2 , 4 , 5,6,1]
+
+Step 3 :
+key = 6
+
+[2 , 4 , 5,6,1]
+
+Step 4 :
+
+key = 1
+
+[1,2,4,5,6]
+
+
+
+
+
+
+
+    
+     */
+
+
+     public static void main(String[] args){
+
+        int[] arr = {5, 2, 4, 6, 1};
+
+        System.out.println("Before Sorting : "+ Arrays.toString(arr));
+
+        insertionSort(arr);
+
+        System.out.println("After Sorting : "+ Arrays.toString(arr));
+
+     }
+
+     public static void insertionSort(int[] arr){
+        int n = arr.length;
+
+        for(int i = 1;i<n;i++){
+
+            int key = arr[i];
+            int j = i-1;
+
+            while(j>=0 && arr[j]>key){
+                arr[j+1] = arr[j];
+                j--;
+
+            }
+
+            arr[j+1] = key;
+
+
+        }
+
+     }
+    
+}
