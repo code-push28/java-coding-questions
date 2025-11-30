@@ -1,1 +1,244 @@
+package arrays;
+
+public class BinarySearchOnAnswers {
+    /*
+    
+    BINARY SEARCH ON ANSWERS 
+    Sometimes, the search space is not an array, but a range of possible answers 
+    — for example, a number, a time, a distance, etc. 
+    You can’t directly “search” through an array, 
+    but you can use binary search to find the minimum or maximum value 
+    that satisfies a condition. 
+    We call this “Binary Search on the Answer” or “Search Space Binary Search”. 
+
+    Example 1: Minimum Capacity to Ship Packages Within D Days
+
+    Problem:
+
+    You have:
+
+    weights = [1,2,3,4,5,6,7,8,9,10]
+    D = 5
+
+
+    Find the minimum ship capacity so that all packages can be shipped in 5 days.
+
+    Step 1: What does "capacity" mean?
+
+    Capacity = maximum weight the ship can carry in one day.
+
+    Example:
+
+    If capacity = 15 → ship can carry weight ≤ 15 per day
+
+    When daily load > capacity → move to next day
+
+    lower 
+    higher
+    
+    Step 2: Think about the extreme limits
+    Minimum possible capacity
+
+    The ship must carry the heaviest box:
+
+    min_capacity = max(weights) = 10
+
+
+    Anything below 10 is invalid.
+
+    Maximum possible capacity
+
+   If the ship carries everything in one day:
+
+   max_capacity = sum(weights) = 55
+
+   weights = [1,2,3,4,5,6,7,8,9,10]
+   D = 5
+   search space = [10, 55]
+
+  lower<=higher
+
+  iteration 1 :
+
+  lower = 10
+  higher = 55 
+  mid = (lower+higher)/2 = (10+55)/2 = 65/2 = 32.5 = 32 int
+
+  min_capacity = 32
+
+  Day 1 : 1 +2+3+4+5+6+7 = 28
+  Day 2 : 8+9+10 = 27
+
+  total days : 2 < D
+
+
+  lower = 10
+
+  higher = mid-1 = 32-1 = 31
+
+  Iteration 2 :
+
+  lower = 10
+  higher = 31
+
+  mid = (10+31)/2 = 41/2 = 20.5 = 20
+
+  min_capacity = 20
+  Day 1 : 1 , 2 , 3 , 4 , 5 
+  Day 2 : 6 , 7 
+  Day3 : 8 ,9 
+  Day 4 : 10
+
+  total days = 4 <5
+
+  lower = 10 
+  higher = mid -1 , 20-1 = 19
+
+  
+  Iteration 3 : 
+
+  mid = (10+19)/2 = 29/2 = 14.5 = 14
+
+  min_capacity = 14
+
+  Day 1 : 1 + 2 +3+4
+  Day 2 : 5+6
+  Day3 : 7
+  Day4 :8
+  Day 5: 9 
+  Day 6 : 10 
+
+  total days = 6 > D(5)
+
+
+  higher = 19
+
+  lower = mid+1 = 14+1 = 15
+
+  Iteration 4 :
+  lower = 15
+  higher = 19 
+
+  mid = (15+19)/2 = 34/2 = 17
+
+  min_capacity = 17
+
+  Day 1 : 1+2+3+4+5
+  Day2: 6+7
+  Day3: 8+9
+  day4 : 10
+
+  4<D(5)
+
+  lower = 15
+  higher = 16
+
+  iteration 5 :
+  mid = (15+16)/2 = 15 
+  min_capacity = 15
+  Day = 5 = D
+
+  lower = 15
+
+  higher = 14
+
+
+
+  
+  
+
+    */
+
+    public static void main(String[] args){
+
+        int[] weights = {1,2,3,4,5,6,7,8,9,10};
+
+        int D = 5;
+
+        System.out.println("Minimum capacity : "+ findMinCapacity(weights, D));
+        
+
+
+    }
+
+    public static int findMinCapacity(int[] weights , int D){
+
+        int min_capacity = 0 ;
+        int lower = 0 ; 
+        int higher = 0 ;
+
+        for(int i = 0 ; i<weights.length;i++){
+            if(weights[i]>lower){
+                lower = weights[i];
+            }
+
+            higher = higher+weights[i];
+        }
+
+      
+
+        while(lower<=higher){
+
+            int mid = (lower+higher)/2;
+
+            if(isValidDays(weights , D , mid)){
+
+                min_capacity = mid;
+
+                higher = mid-1;
+            }else{
+                lower = mid+1 ; 
+            }
+
+        }
+
+        
+
+
+
+       
+
+
+        return min_capacity;
+
+    }
+
+
+   public static boolean isValidDays(int[] weights , int D ,int min_capacity){
+
+    int days = 1 ;
+    int currentLoad = 0 ;
+
+    for(int w:weights){
+
+        if(currentLoad+w>min_capacity){
+
+            days++;
+            currentLoad = w;
+        }else{
+
+         currentLoad+=w;
+        }
+
+        if(days>D) return false;
+
+
+
+    }
+    return true ; 
+
+
+   }
+
+ 
+
+
+
+
+   
+
+
+
+    
+}
 
